@@ -1,0 +1,34 @@
+#! /usr/bin/awk -f
+
+# part one
+# A & X are Rock
+# B and Y are paper
+# C and Z are scissors 
+#Paper beats rock, Rock beats scissors, Scissors beats paper  
+
+#replacing "encrypted" values with the actual moves for readability 
+ { gsub(/A|X/, "Rock"); gsub(/B|Y/, "Paper"); gsub(/C|Z/, "Scissors") }
+{ lose=0; tie=3; win=6; rock = 1; paper=2; scissors=3 }
+
+{ if ( $1 == "Rock") {
+            if ( $2 == $1 )  { score += tie + rock} 
+            else {
+                if ( $2 == "Paper")   { score += win + paper }
+                else { score += lose + scissors }
+            } }
+else if ( $1 == "Paper" ) {
+            if ( $2 == $1 ) { score += tie + paper }
+            else {
+                if ( $2 == "Scissors")  { score += win + scissors } 
+                else score += lose + rock 
+            } } 
+else if ( $1 == "Scissors" ) {
+            if ( $2 == $1 )  { score += tie + scissors }
+            else {
+                if ( $2 == "Rock") { score += win + rock }
+                else score += lose + paper
+            } } } 
+END {print score}
+
+
+

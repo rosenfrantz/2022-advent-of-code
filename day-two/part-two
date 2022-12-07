@@ -1,0 +1,51 @@
+#! /usr/bin/awk -f
+
+# doing two separate files bc I don't feel like figuring out how to undo my gsub after I did it, but also I like having the code more readable in that way 
+# so I don't want to not do it 
+
+#part two 
+# x = lose
+# y = draw
+# z = win 
+
+
+#replacing "encrypted" values with the actual endings for readability 
+ { gsub(/A/, "Rock"); gsub(/B/, "Paper"); gsub(/C/, "Scissors") gsub(/X/, "Lose"); gsub(/Y/, "Tie"); gsub(/Z/, "Win");}
+{ lose=0; tie=3; win=6; rock = 1; paper=2; scissors=3 }
+
+# Against rock: 
+    # to win: play paper
+    # to lose: play scissors
+    # to tie: play rock 
+
+# Against paper: 
+    # to win: play scissors
+    # to lose: play rock
+    # to tie: play paper
+
+# Against scissors: 
+    # to win: play rock
+    # to lose: play paper
+    # to tie: play scissors
+
+{ if ( $1 == "Rock") {
+            if ( $2 == "Tie" )  { score += tie + rock} 
+            else {
+                if ( $2 == "Win")   { score += win + paper }
+                else { score += lose + scissors }
+            } }
+else if ( $1 == "Paper" ) {
+            if ( $2 == "Tie" ) { score += tie + paper }
+            else {
+                if ( $2 == "Win")  { score += win + scissors } 
+                else score += lose + rock 
+            }  } 
+else if ( $1 == "Scissors" ) {
+            if ( $2 == "Tie" )  { score += tie + scissors }
+            else {
+                if ( $2 == "Win") { score += win + rock }
+                else score += lose + paper
+            }  } } 
+END {print score}
+
+
