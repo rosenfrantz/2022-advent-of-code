@@ -10,6 +10,6 @@ NR==FNR{ l=1; while (l<=NR) { # NR==FR mess means this is only run on first file
 second=substr($0,length/2 + 1); # assign second compartment substring starting at halfway point +1, ending at end of string
 match_index=match(second,first); # identify which item in second compartment matches first, return index of that item
 match_value=substr(second, match_index, 1); # store actual value of the item
-sum+=priority[match_value] }
+sum+=priority[match_value] }  #access the priority value of that item, add to overall sum of item priorities
 
 END { print sum }
